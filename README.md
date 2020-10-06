@@ -1,7 +1,7 @@
 # Graphql Deduplicator
-[![godoc](http://img.shields.io/badge/godoc-reference-5272B4.svg?style=flat)](https://pkg.go.dev/github.com/kumparan/gqldeduplicator) 
-[![go report](https://goreportcard.com/badge/github.com/kumparan/gqldeduplicator)](https://goreportcard.com/report/github.com/kumparan/gqldeduplicator)
-[![license](http://img.shields.io/badge/license-MIT-red.svg?style=flat)](https://github.com/kumparan/gqldeduplicator/blob/master/LICENSE)
+[![Go Report Card](https://goreportcard.com/badge/github.com/kumparan/gqldeduplicator)](https://goreportcard.com/report/github.com/kumparan/gqldeduplicator)
+[![Godoc](http://img.shields.io/badge/godoc-reference-5272B4.svg?style=flat)](https://pkg.go.dev/github.com/kumparan/gqldeduplicator) 
+[![License](http://img.shields.io/badge/license-MIT-red.svg?style=flat)](https://github.com/kumparan/gqldeduplicator/blob/master/LICENSE)
 
 GraphQL response deduplicator.
 
