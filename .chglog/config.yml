@@ -1,0 +1,33 @@
+style: gitlab
+template: CHANGELOG.tpl.md
+info:
+  title: CHANGELOG
+  repository_url: https://github.com/kumparan/gqldeduplicator
+options:
+  commits:
+     filters:
+       Type:
+         - feature
+         - bugfix
+         - hotfix
+         - refactor
+         - test
+         - doc
+         - misc
+  commit_groups:
+     title_maps:
+       feature: Feature
+       bugfix: Fix
+       hotfix: Fix
+       refactor: Refactor
+       test: Test
+       doc: Doc
+       misc: Other
+  header:
+    pattern: "^(\\w*)\\:\\s(.*)$"
+    pattern_maps:
+      - Type
+      - Subject
+  notes:
+    keywords:
+      - BREAKING CHANGE
