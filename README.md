@@ -1,0 +1,2 @@
+# gqldeduplicator
+GraphQL response deduplicator
