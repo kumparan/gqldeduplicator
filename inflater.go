@@ -5,13 +5,13 @@ import (
 	"fmt"
 )
 
-const isInflatedKey = "__is_inflated_key__"
+const inflatedKey = "__inflated_key__"
 
 type (
 	// InflateResult represent inflated object result
 	InflateResult struct {
-		Data       []byte
-		IsInflated bool
+		Data     []byte
+		Inflated bool
 	}
 )
 
@@ -32,8 +32,8 @@ func Inflate(data []byte) (*InflateResult, error) {
 	}
 
 	return &InflateResult{
-		Data:       resultByte,
-		IsInflated: memoize[isInflatedKey] != nil,
+		Data:     resultByte,
+		Inflated: memoize[inflatedKey] != nil,
 	}, nil
 }
 
@@ -54,8 +54,8 @@ func InflateWithCustomIdentifier(data []byte, identifier string) (*InflateResult
 	}
 
 	return &InflateResult{
-		Data:       resultByte,
-		IsInflated: memoize[isInflatedKey] != nil,
+		Data:     resultByte,
+		Inflated: memoize[inflatedKey] != nil,
 	}, nil
 }
 
@@ -75,7 +75,7 @@ func inflate(node interface{}, memoize map[string]interface{}, identifier, path 
 		if value != nil && value[identifier] != nil && value["__typename"] != nil {
 			key := fmt.Sprintf("%s,%v,%v", path, value["__typename"], value[identifier])
 			if memoize[key] != nil {
-				memoize[isInflatedKey] = true
+				memoize[inflatedKey] = true
 				return memoize[key]
 			}
 

@@ -9,6 +9,7 @@ Javascript version: https://github.com/gajus/graphql-deduplicator
 
 ### Usage
 
+- Basic
 ```
 package main
 
@@ -48,3 +49,5 @@ func main() {
     log.Println("inflate:", string(inflate.Data))
 }
 ```
+
+- [GraphQL Gophers](example/graph-gophers/main.go)

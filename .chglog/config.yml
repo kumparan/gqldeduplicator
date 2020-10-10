@@ -12,15 +12,17 @@ options:
          - hotfix
          - refactor
          - test
+         - doc
          - misc
   commit_groups:
      title_maps:
-       feature: New Features
-       bugfix: Fixes
-       hotfix: Fixes
-       refactor: Code Improvements
-       test: Test Improvements
-       misc: Other Improvements
+       feature: Feature
+       bugfix: Fix
+       hotfix: Fix
+       refactor: Refactor
+       test: Test
+       doc: Doc
+       misc: Other
   header:
     pattern: "^(\\w*)\\:\\s(.*)$"
     pattern_maps:

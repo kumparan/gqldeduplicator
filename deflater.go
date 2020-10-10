@@ -5,13 +5,13 @@ import (
 	"fmt"
 )
 
-const isDeflatedKey = "__is_deflated_key__"
+const deflatedKey = "__deflated_key__"
 
 type (
 	// DeflateResult represent deflated object result
 	DeflateResult struct {
-		Data       []byte
-		IsDeflated bool
+		Data     []byte
+		Deflated bool
 	}
 )
 
@@ -32,8 +32,8 @@ func Deflate(data []byte) (*DeflateResult, error) {
 	}
 
 	return &DeflateResult{
-		Data:       resultByte,
-		IsDeflated: memoize[isDeflatedKey],
+		Data:     resultByte,
+		Deflated: memoize[deflatedKey],
 	}, nil
 }
 
@@ -54,8 +54,8 @@ func DeflateWithCustomIdentifier(data []byte, identifier string) (*DeflateResult
 	}
 
 	return &DeflateResult{
-		Data:       resultByte,
-		IsDeflated: memoize[isDeflatedKey],
+		Data:     resultByte,
+		Deflated: memoize[deflatedKey],
 	}, nil
 }
 
@@ -75,7 +75,7 @@ func deflate(node interface{}, memoize map[string]bool, identifier, path string)
 		if value != nil && value[identifier] != nil && value["__typename"] != nil {
 			key := fmt.Sprintf("%s,%v,%v", path, value["__typename"], value[identifier])
 			if memoize[key] {
-				memoize[isDeflatedKey] = true
+				memoize[deflatedKey] = true
 				return map[string]interface{}{
 					identifier:   value[identifier],
 					"__typename": value["__typename"],

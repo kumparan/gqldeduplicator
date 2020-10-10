@@ -8,14 +8,14 @@ import (
 
 func TestInflate(t *testing.T) {
 	tests := []struct {
-		Name       string
-		Expected   []byte
-		Given      []byte
-		IsInflated bool
+		Name     string
+		Expected []byte
+		Given    []byte
+		Inflated bool
 	}{
 		{
-			Name:       "should inflate 1st child",
-			IsInflated: true,
+			Name:     "should inflate 1st child",
+			Inflated: true,
 			Given: []byte(`
 			{
 				"root": [
@@ -91,8 +91,8 @@ func TestInflate(t *testing.T) {
 			}`),
 		},
 		{
-			Name:       "should inflate nth child",
-			IsInflated: true,
+			Name:     "should inflate nth child",
+			Inflated: true,
 			Given: []byte(`
 			{
 				"root": [
@@ -167,8 +167,8 @@ func TestInflate(t *testing.T) {
 			}`),
 		},
 		{
-			Name:       "should not inflate single result",
-			IsInflated: false,
+			Name:     "should not inflate single result",
+			Inflated: false,
 			Given: []byte(`
 			{
 				"root": true
@@ -179,14 +179,14 @@ func TestInflate(t *testing.T) {
 			}`),
 		},
 		{
-			Name:       "should not inflate null result",
-			IsInflated: false,
-			Given:      []byte(`null`),
-			Expected:   []byte(`null`),
+			Name:     "should not inflate null result",
+			Inflated: false,
+			Given:    []byte(`null`),
+			Expected: []byte(`null`),
 		},
 		{
-			Name:       "should not inflate object without typename and id",
-			IsInflated: false,
+			Name:     "should not inflate object without typename and id",
+			Inflated: false,
 			Given: []byte(`
 			{
 				"id": "1",
@@ -199,8 +199,8 @@ func TestInflate(t *testing.T) {
 			}`),
 		},
 		{
-			Name:       "should not inflate first object",
-			IsInflated: true,
+			Name:     "should not inflate first object",
+			Inflated: true,
 			Given: []byte(`
 			{
 				"root": [
@@ -232,8 +232,8 @@ func TestInflate(t *testing.T) {
 			}`),
 		},
 		{
-			Name:       "should not inflate array of string",
-			IsInflated: false,
+			Name:     "should not inflate array of string",
+			Inflated: false,
 			Given: []byte(`
 			{
 				"root": {
@@ -258,8 +258,8 @@ func TestInflate(t *testing.T) {
 			}`),
 		},
 		{
-			Name:       "should not inflate array of number",
-			IsInflated: false,
+			Name:     "should not inflate array of number",
+			Inflated: false,
 			Given: []byte(`
 			{
 				"root": {
@@ -284,8 +284,8 @@ func TestInflate(t *testing.T) {
 			}`),
 		},
 		{
-			Name:       "should not inflate array of boolean",
-			IsInflated: false,
+			Name:     "should not inflate array of boolean",
+			Inflated: false,
 			Given: []byte(`
 			{
 				"root": {
@@ -310,8 +310,8 @@ func TestInflate(t *testing.T) {
 			}`),
 		},
 		{
-			Name:       "should not inflate nested array",
-			IsInflated: false,
+			Name:     "should not inflate nested array",
+			Inflated: false,
 			Given: []byte(`
 			{
 				"root": {
@@ -354,7 +354,7 @@ func TestInflate(t *testing.T) {
 			result, err := Inflate(test.Given)
 			assert.NoError(t, err)
 			assert.JSONEq(t, string(test.Expected), string(result.Data))
-			assert.Equal(t, test.IsInflated, result.IsInflated)
+			assert.Equal(t, test.Inflated, result.Inflated)
 		})
 	}
 
@@ -370,12 +370,12 @@ func TestInflateIdentifier(t *testing.T) {
 		Name       string
 		Expected   []byte
 		Given      []byte
-		IsInflated bool
+		Inflated   bool
 		Identifier string
 	}{
 		{
 			Name:       "should inflate 1st child",
-			IsInflated: true,
+			Inflated:   true,
 			Identifier: "node_id",
 			Expected: []byte(`
 			{
@@ -453,7 +453,7 @@ func TestInflateIdentifier(t *testing.T) {
 		},
 		{
 			Name:       "should inflate nth child",
-			IsInflated: true,
+			Inflated:   true,
 			Identifier: "node_id",
 			Expected: []byte(`
 			{
@@ -530,7 +530,7 @@ func TestInflateIdentifier(t *testing.T) {
 		},
 		{
 			Name:       "should not inflate single result",
-			IsInflated: false,
+			Inflated:   false,
 			Identifier: "node_id",
 			Expected: []byte(`
 			{
@@ -543,14 +543,14 @@ func TestInflateIdentifier(t *testing.T) {
 		},
 		{
 			Name:       "should not inflate null result",
-			IsInflated: false,
+			Inflated:   false,
 			Identifier: "node_id",
 			Expected:   []byte(`null`),
 			Given:      []byte(`null`),
 		},
 		{
 			Name:       "should not inflate object without typename and node_id",
-			IsInflated: false,
+			Inflated:   false,
 			Identifier: "node_id",
 			Expected: []byte(`
 			{
@@ -565,7 +565,7 @@ func TestInflateIdentifier(t *testing.T) {
 		},
 		{
 			Name:       "should not inflate first object",
-			IsInflated: true,
+			Inflated:   true,
 			Identifier: "node_id",
 			Expected: []byte(`
 			{
@@ -599,7 +599,7 @@ func TestInflateIdentifier(t *testing.T) {
 		},
 		{
 			Name:       "should not inflate array of string",
-			IsInflated: false,
+			Inflated:   false,
 			Identifier: "node_id",
 			Expected: []byte(`
 			{
@@ -626,7 +626,7 @@ func TestInflateIdentifier(t *testing.T) {
 		},
 		{
 			Name:       "should not inflate array of number",
-			IsInflated: false,
+			Inflated:   false,
 			Identifier: "node_id",
 			Expected: []byte(`
 			{
@@ -653,7 +653,7 @@ func TestInflateIdentifier(t *testing.T) {
 		},
 		{
 			Name:       "should not inflate array of boolean",
-			IsInflated: false,
+			Inflated:   false,
 			Identifier: "node_id",
 			Expected: []byte(`
 			{
@@ -680,7 +680,7 @@ func TestInflateIdentifier(t *testing.T) {
 		},
 		{
 			Name:       "should not inflate nested array",
-			IsInflated: false,
+			Inflated:   false,
 			Identifier: "node_id",
 			Expected: []byte(`
 			{
@@ -724,7 +724,7 @@ func TestInflateIdentifier(t *testing.T) {
 			result, err := InflateWithCustomIdentifier(test.Given, test.Identifier)
 			assert.NoError(t, err)
 			assert.JSONEq(t, string(test.Expected), string(result.Data))
-			assert.Equal(t, test.IsInflated, result.IsInflated)
+			assert.Equal(t, test.Inflated, result.Inflated)
 		})
 	}
 

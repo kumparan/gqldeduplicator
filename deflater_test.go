@@ -8,14 +8,14 @@ import (
 
 func TestDeflate(t *testing.T) {
 	tests := []struct {
-		Name       string
-		Given      []byte
-		Expected   []byte
-		IsDeflated bool
+		Name     string
+		Given    []byte
+		Expected []byte
+		Deflated bool
 	}{
 		{
-			Name:       "should deflate 1st child",
-			IsDeflated: true,
+			Name:     "should deflate 1st child",
+			Deflated: true,
 			Given: []byte(`
 			{
 				"root": [
@@ -91,8 +91,8 @@ func TestDeflate(t *testing.T) {
 			}`),
 		},
 		{
-			Name:       "should deflate nth child",
-			IsDeflated: true,
+			Name:     "should deflate nth child",
+			Deflated: true,
 			Given: []byte(`
 			{
 				"root": [
@@ -167,8 +167,8 @@ func TestDeflate(t *testing.T) {
 			}`),
 		},
 		{
-			Name:       "should not deflate single result",
-			IsDeflated: false,
+			Name:     "should not deflate single result",
+			Deflated: false,
 			Given: []byte(`
 			{
 				"root": true
@@ -179,14 +179,14 @@ func TestDeflate(t *testing.T) {
 			}`),
 		},
 		{
-			Name:       "should not deflate null result",
-			IsDeflated: false,
-			Given:      []byte(`null`),
-			Expected:   []byte(`null`),
+			Name:     "should not deflate null result",
+			Deflated: false,
+			Given:    []byte(`null`),
+			Expected: []byte(`null`),
 		},
 		{
-			Name:       "should not deflate object without typename and id",
-			IsDeflated: false,
+			Name:     "should not deflate object without typename and id",
+			Deflated: false,
 			Given: []byte(`
 			{
 				"id": "1",
@@ -199,8 +199,8 @@ func TestDeflate(t *testing.T) {
 			}`),
 		},
 		{
-			Name:       "should not deflate first object",
-			IsDeflated: true,
+			Name:     "should not deflate first object",
+			Deflated: true,
 			Given: []byte(`
 			{
 				"root": [
@@ -232,8 +232,8 @@ func TestDeflate(t *testing.T) {
 			}`),
 		},
 		{
-			Name:       "should not deflate array of string",
-			IsDeflated: false,
+			Name:     "should not deflate array of string",
+			Deflated: false,
 			Given: []byte(`
 			{
 				"root": {
@@ -258,8 +258,8 @@ func TestDeflate(t *testing.T) {
 			}`),
 		},
 		{
-			Name:       "should not deflate array of number",
-			IsDeflated: false,
+			Name:     "should not deflate array of number",
+			Deflated: false,
 			Given: []byte(`
 			{
 				"root": {
@@ -284,8 +284,8 @@ func TestDeflate(t *testing.T) {
 			}`),
 		},
 		{
-			Name:       "should not deflate array of boolean",
-			IsDeflated: false,
+			Name:     "should not deflate array of boolean",
+			Deflated: false,
 			Given: []byte(`
 			{
 				"root": {
@@ -310,8 +310,8 @@ func TestDeflate(t *testing.T) {
 			}`),
 		},
 		{
-			Name:       "should not deflate nested array",
-			IsDeflated: false,
+			Name:     "should not deflate nested array",
+			Deflated: false,
 			Given: []byte(`
 			{
 				"root": {
@@ -354,7 +354,7 @@ func TestDeflate(t *testing.T) {
 			result, err := Deflate(test.Given)
 			assert.NoError(t, err)
 			assert.JSONEq(t, string(test.Expected), string(result.Data))
-			assert.Equal(t, test.IsDeflated, result.IsDeflated)
+			assert.Equal(t, test.Deflated, result.Deflated)
 		})
 	}
 
@@ -370,12 +370,12 @@ func TestDeflateIdentifier(t *testing.T) {
 		Name       string
 		Given      []byte
 		Expected   []byte
-		IsDeflated bool
+		Deflated   bool
 		Identifier string
 	}{
 		{
 			Name:       "should deflate 1st child",
-			IsDeflated: true,
+			Deflated:   true,
 			Identifier: "node_id",
 			Given: []byte(`
 			{
@@ -453,7 +453,7 @@ func TestDeflateIdentifier(t *testing.T) {
 		},
 		{
 			Name:       "should deflate nth child",
-			IsDeflated: true,
+			Deflated:   true,
 			Identifier: "node_id",
 			Given: []byte(`
 			{
@@ -530,7 +530,7 @@ func TestDeflateIdentifier(t *testing.T) {
 		},
 		{
 			Name:       "should not deflate single result",
-			IsDeflated: false,
+			Deflated:   false,
 			Identifier: "node_id",
 			Given: []byte(`
 			{
@@ -543,14 +543,14 @@ func TestDeflateIdentifier(t *testing.T) {
 		},
 		{
 			Name:       "should not deflate null result",
-			IsDeflated: false,
+			Deflated:   false,
 			Identifier: "node_id",
 			Given:      []byte(`null`),
 			Expected:   []byte(`null`),
 		},
 		{
 			Name:       "should not deflate object without typename and node_id",
-			IsDeflated: false,
+			Deflated:   false,
 			Identifier: "node_id",
 			Given: []byte(`
 			{
@@ -565,7 +565,7 @@ func TestDeflateIdentifier(t *testing.T) {
 		},
 		{
 			Name:       "should not deflate first object",
-			IsDeflated: true,
+			Deflated:   true,
 			Identifier: "node_id",
 			Given: []byte(`
 			{
@@ -599,7 +599,7 @@ func TestDeflateIdentifier(t *testing.T) {
 		},
 		{
 			Name:       "should not deflate array of string",
-			IsDeflated: false,
+			Deflated:   false,
 			Identifier: "node_id",
 			Given: []byte(`
 			{
@@ -626,7 +626,7 @@ func TestDeflateIdentifier(t *testing.T) {
 		},
 		{
 			Name:       "should not deflate array of number",
-			IsDeflated: false,
+			Deflated:   false,
 			Identifier: "node_id",
 			Given: []byte(`
 			{
@@ -653,7 +653,7 @@ func TestDeflateIdentifier(t *testing.T) {
 		},
 		{
 			Name:       "should not deflate array of boolean",
-			IsDeflated: false,
+			Deflated:   false,
 			Identifier: "node_id",
 			Given: []byte(`
 			{
@@ -680,7 +680,7 @@ func TestDeflateIdentifier(t *testing.T) {
 		},
 		{
 			Name:       "should not deflate nested array",
-			IsDeflated: false,
+			Deflated:   false,
 			Identifier: "node_id",
 			Given: []byte(`
 			{
@@ -724,7 +724,7 @@ func TestDeflateIdentifier(t *testing.T) {
 			result, err := DeflateWithCustomIdentifier(test.Given, test.Identifier)
 			assert.NoError(t, err)
 			assert.JSONEq(t, string(test.Expected), string(result.Data))
-			assert.Equal(t, test.IsDeflated, result.IsDeflated)
+			assert.Equal(t, test.Deflated, result.Deflated)
 		})
 	}
 

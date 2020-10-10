@@ -2,8 +2,11 @@
 
 
 <a name="v1.0.0"></a>
-## v1.0.0 - 2020-10-06
-### New Features
+## v1.0.0 - 2020-10-10
+### Doc
+- add graph-gophers example usage
+
+### Feature
 - implement response deflater and inflater
 
 
